@@ -16,28 +16,44 @@ for card in allCards:
     link = card.find('a', href=True)
     cardLinks.append(link['href'])
 
-
+# for cardLink in cardLinks:
+#     page = requests.get('https://yugioh.fandom.com'+cardLinks, headers=headers)
 page = requests.get('https://yugioh.fandom.com'+cardLinks[0], headers=headers)
 soup = BeautifulSoup(page.text, 'html.parser')
 
-links = [4,5,24];
-texts = [0,6,8,10,11,13,19,23]
+links24 = [4, 5, 24]; #card type, card type short, type
+texts24 = [0, 6, 8, 10, 11, 13, 19, 23] #atk, def, englishname, fmr number, guardian star, level, passcode, starchip
+
+links25 = [4, 5, 24];
+texts25 = [0, 6, 8, 10, 11, 13, 19, 23]
+
+links26 = [4, 5, 26];
+texts26 = [0, 6, 8, 10, 11, 13, 19, 25]
+
 
 tableCardDetails = soup.find_all(class_='smw-table smwfacttable')
 tableRow = tableCardDetails[0].find_all(class_='smw-table-row')
 
 rowData = []
 
-# for cardDetails in tableCardDetails:
-
 for index, row in enumerate(tableRow):
+    if len(tableRow) == 24:
+        links = links24
+        texts = texts24
+    elif len(tableRow) == 25:
+        links = links25
+        texts = texts25
+    elif len(tableRow) == 26:
+        links = links26
+        texts = texts26
+
     if index in links:
         data = row.find(class_='smw-table-cell smwprops')
         rowData.append(data.find('a').text)
-        # print(index)
     elif index in texts:
         data = row.find(class_='smw-table-cell smwprops')
-        text = (data.text).replace('  +', '').replace('\xa0', '').replace(' and', '/').replace(',', '.')
+        text = (data.text).replace('  +', '').replace(' +', '').replace('\xa0', '').replace(' and', '/').replace(',', '.')
+        # text = data.text
 
         if "/" in text:
             guardians = text.split('/')
@@ -45,11 +61,6 @@ for index, row in enumerate(tableRow):
             rowData.append(guardians[1])
         else:
             rowData.append(text)
-        # print(index)
-
-    # if()
-    # link = row.find('a', href=True)
-    # cardLinks.append(link['href'])
 
 
 
