@@ -21,11 +21,8 @@ for card in allCards:
 page = requests.get('https://yugioh.fandom.com'+cardLinks[0], headers=headers)
 soup = BeautifulSoup(page.text, 'html.parser')
 
-links24 = [4, 5, 24]; #card type, card type short, type
-texts24 = [0, 6, 8, 10, 11, 13, 19, 23] #atk, def, englishname, fmr number, guardian star, level, passcode, starchip
-
-links25 = [4, 5, 24];
-texts25 = [0, 6, 8, 10, 11, 13, 19, 23]
+linksDefault = [4, 5, 24]; #card type, card type short, type
+textsDefault = [0, 6, 8, 10, 11, 13, 19, 23] #atk, def, englishname, fmr number, guardian star, level, passcode, starchip
 
 links26 = [4, 5, 26];
 texts26 = [0, 6, 8, 10, 11, 13, 19, 25]
@@ -37,12 +34,9 @@ tableRow = tableCardDetails[0].find_all(class_='smw-table-row')
 rowData = []
 
 for index, row in enumerate(tableRow):
-    if len(tableRow) == 24:
-        links = links24
-        texts = texts24
-    elif len(tableRow) == 25:
-        links = links25
-        texts = texts25
+    if len(tableRow) == 24 | len(tableRow) == 25:
+        links = linksDefault
+        texts = textsDefault
     elif len(tableRow) == 26:
         links = links26
         texts = texts26
