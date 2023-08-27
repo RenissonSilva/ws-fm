@@ -27,15 +27,15 @@ for cardLink in cardLinks:
     soup = BeautifulSoup(page.text, 'html.parser')
 
     #monster
-    linksDefault = [4, 5, 24]; #card type, card type short, type
+    linksDefault = [4, 5, 24] #card type, card type short, type
     textsDefault = [0, 6, 8, 10, 11, 13, 19, 23] #atk, def, englishname, fmr number, guardian star, level, passcode, starchip
     
     #monster
-    links26 = [4, 5, 26];
+    links26 = [4, 5, 26]
     texts26 = [0, 6, 8, 10, 11, 13, 19, 25]
 
     # equips
-    links18 = [1, 2];
+    links18 = [1, 2]
     texts18 = [3, 5, 12, 17]
 
 
@@ -51,9 +51,9 @@ for cardLink in cardLinks:
                 links = linksDefault
                 texts = textsDefault
             elif len(tableRow) == 26:
-                links =18
+                links = links26
                 texts = texts26
-            elif len(tableRow) == 18:
+            elif len(tableRow) == 18 | len(tableRow) == 19:
                 links = links18
                 texts = texts18
             if index in links:
